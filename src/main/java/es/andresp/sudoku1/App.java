@@ -12,9 +12,13 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-        var scene = new Scene(new StackPane(), 640, 480);
+        StackPane root = new StackPane();
+        var scene = new Scene(root, 640, 480);
         stage.setScene(scene);
         stage.show();
+        
+        Tablero tablero = new Tablero();
+        root.getChildren().add(tablero);
     }
 
     public static void main(String[] args) {
