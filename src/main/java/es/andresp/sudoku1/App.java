@@ -3,6 +3,7 @@ package es.andresp.sudoku1;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -19,6 +20,9 @@ public class App extends Application {
         
         Tablero tablero = new Tablero();
         root.getChildren().add(tablero);
+        
+        Circle circle = new Circle();
+        root.getChildren().add(circle);
     }
 
     public static void main(String[] args) {
