@@ -1,6 +1,7 @@
 package es.andresp.sudoku1;
 
 import java.util.Random;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -10,32 +11,39 @@ public class Tablero extends Pane{
     
     Sudoku sudoku;
    // static final short TAM_CASILLA = 30;
+    TextField txf = new TextField();
     
     public Tablero() {
         sudoku = new Sudoku();
         sudoku.mostrarConsola();
+        this.getChildren().add(txf);
+        txf.setLayoutX(320);
+        txf.setLayoutY(20);
         
         
-        //Posición que yo le ponga
-        Numeros numero = new Numeros();
-        int filaY = 1;
-        int columnaX = 3;
-        numero.setLayoutY((filaY * Numeros.TAM_FICHA)+ Numeros.TAM_FICHA/10);
-        numero.setLayoutX((columnaX * Numeros.TAM_FICHA)+ Numeros.TAM_FICHA/3);
-        this.getChildren().add(numero);
+//        //Posición que yo le ponga
+//        Numeros numero = new Numeros();
+//        int filaY = 1;
+//        int columnaX = 3;
+//        numero.setLayoutY((filaY * Numeros.TAM_FICHA)+ Numeros.TAM_FICHA/10);
+//        numero.setLayoutX((columnaX * Numeros.TAM_FICHA)+ Numeros.TAM_FICHA/3);
+//        this.getChildren().add(numero);
         
         //Posición aleatoria
         
         Random random = new Random();
         
         for(int i=0; i<10; i++) {
-            Numeros numero2 = new Numeros();
+            int numeroR = random.nextInt(9)+1;
+            Numeros numero2 = new Numeros(numeroR);
             int fila2 = random.nextInt(9);
             int columna2 = random.nextInt(9);
             numero2.setLayoutY((fila2 * Numeros.TAM_FICHA)+ Numeros.TAM_FICHA/10);
             numero2.setLayoutX((columna2 * Numeros.TAM_FICHA)+ Numeros.TAM_FICHA/3);
             this.getChildren().add(numero2);
             System.out.println(fila2+","+columna2);
+            sudoku.colocarFicha(fila2, columna2, numeroR);
+            sudoku.mostrarConsola();
         }
 
         
@@ -75,17 +83,17 @@ public class Tablero extends Pane{
             int clicY = (int)mouseEvent.getY();
             int fila = clicY / Numeros.TAM_FICHA;
             System.out.println("Fila: " + fila);
-            
-            colocarFicha(columna, fila);
+            System.out.println(txf.getText());
+            colocarFicha(columna, fila, );
             
         });
     }
-    private void colocarFicha(int columna, int fila) {
+    private void colocarFicha(int columna, int fila, int textf) {
         Numeros numero = new Numeros();
         numero.setLayoutX((columna * Numeros.TAM_FICHA) + Numeros.TAM_FICHA/3);
         numero.setLayoutY((fila * Numeros.TAM_FICHA) + Numeros.TAM_FICHA/10);
         this.getChildren().add(numero);
-        sudoku.colocarFicha(fila, columna);
+        sudoku.colocarFicha(fila, columna, textf);
         sudoku.mostrarConsola();
     }
 }
