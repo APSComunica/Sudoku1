@@ -1,6 +1,7 @@
 package es.andresp.sudoku1;
 
 import java.util.Random;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -84,12 +85,44 @@ public class Tablero extends Pane{
             int fila = clicY / Numeros.TAM_FICHA;
             System.out.println("Fila: " + fila);
             System.out.println(txf.getText());
-            colocarFicha(columna, fila, );
+            String enteroString = txf.getText();
+            int entero = Integer.valueOf(enteroString);
+            
+            
+            
+            if(fila<9 && columna<9){
+                //si la casilla del array hay un . coloca la ficha
+                if(sudoku.cuadricula[fila][columna]=='.'){
+                    //solo si la fila y columna está dentro del tablero
+                    //texto cuando lo cojo preguntar que solo sea 1 digito entre 1 y 9
+                    if (entero>0 && entero<10){
+                        colocarFicha(columna, fila, entero);
+                    }else{
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Mensaje");
+                        alert.setContentText("Error debes colocar un numero entre 1 y 9");
+                        alert.showAndWait();
+                    }
+                }else{
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Mensaje");
+                        alert.setContentText("Debes colocar el numero en un sitio vacio");
+                        alert.showAndWait();
+                 }
+            }else{
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Mensaje");
+                        alert.setContentText("Debes colocar el numero en las casillas del tablero");
+                        alert.showAndWait();
+             }           
+            
+            
+            
             
         });
     }
     private void colocarFicha(int columna, int fila, int textf) {
-        Numeros numero = new Numeros();
+        Numeros numero = new Numeros(textf);
         numero.setLayoutX((columna * Numeros.TAM_FICHA) + Numeros.TAM_FICHA/3);
         numero.setLayoutY((fila * Numeros.TAM_FICHA) + Numeros.TAM_FICHA/10);
         this.getChildren().add(numero);
