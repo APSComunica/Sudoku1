@@ -34,19 +34,27 @@ public class Tablero extends Pane{
         
         Random random = new Random();
         
+        
         for(int i=0; i<10; i++) {
             int numeroR = random.nextInt(9)+1;
             Numeros numero2 = new Numeros(numeroR);
-            int fila2 = random.nextInt(9);
-            int columna2 = random.nextInt(9);
+            int fila2;
+            int columna2;        
+            do{
+                fila2 = random.nextInt(9);
+                columna2 = random.nextInt(9);
+            }
+            while(sudoku.cuadricula[fila2][columna2]!='.');
             numero2.setLayoutY((fila2 * Numeros.TAM_FICHA)+ Numeros.TAM_FICHA/10);
             numero2.setLayoutX((columna2 * Numeros.TAM_FICHA)+ Numeros.TAM_FICHA/3);
             this.getChildren().add(numero2);
             System.out.println(fila2+","+columna2);
             sudoku.colocarFicha(fila2, columna2, numeroR);
             sudoku.mostrarConsola();
+            
         }
-
+      
+        
         
         
         // Verticales
